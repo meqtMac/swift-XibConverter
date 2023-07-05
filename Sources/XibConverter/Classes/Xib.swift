@@ -45,6 +45,14 @@ class Xib {
         // outlet must executable before navigation to construct idDict
         getOutletsAndActions(node: baseNode)
         navigateGettingInterestPoints(from: baseNode)
+        defer {
+            // assign baseView's name to self, run last to avoid override by other code.
+            if let baseView {
+                if let id = baseView.attrs["id"] {
+                    idDict[id] = "self"
+                }
+            }
+        }
         Xib.instance = self
     }
     
@@ -107,6 +115,7 @@ class Xib {
         guard let father = node.father else { return }
         
         baseView = father
+        
 //        if father.attrs["id"] == nil {
 //            baseView = father.father
 //            father.attrs["id"] = father.father?.attrs["id"] ?? "baseView"
