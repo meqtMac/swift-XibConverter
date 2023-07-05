@@ -8,7 +8,15 @@
 import Foundation
 
 
+struct Constraint {
+    let anchor: String
+    let declaration: String
+}
 
+typealias Constraints = [String: [Constraint]]
+
+
+/// Constrains Generator
 class ConstraintsGenerator {
     
     /**

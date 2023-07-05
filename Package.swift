@@ -27,6 +27,12 @@ let package = Package(
             dependencies: [
                 "XibConverter"
             ]
+        ),
+        .testTarget(
+            name: "XibConverterTests",
+            dependencies: [
+                "XibConverter"
+            ]
         )
     ]
 )

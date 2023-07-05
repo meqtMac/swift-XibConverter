@@ -14,17 +14,22 @@ public func xib2Swift(
 ) -> String {
     let xib = Xib(xibData: xibData)
     
-    let uiDeclarationGen = UIDeclarationsGen()
+    let uiDeclarationGenerator = UIDeclarationsGenerator()
     
-    let uiDeclarations = uiDeclarationGen.generateUIDeclarations(subviews: xib.subviews)
+    let uiDeclarations = uiDeclarationGenerator.generateUIDeclarations(subviews: xib.subviews)
     let constraintsDeclarations = ConstraintsGenerator().generateConstraintsDeclarations(nodes: xib.constraints)
     
+    // view hierachy
     var viewHierachy = ""
     for subview in xib.subviews {
         viewHierachy += ViewHierarchy.generateViewHierarchy(subview: subview)
     }
     
-    let baseViewDeclaration = uiDeclarationGen.generateBaseViewProperties(baseView: xib.baseView)
+    // base view
+    let baseViewDeclaration = uiDeclarationGenerator.generateBaseViewProperties(baseView: xib.baseView)
+    
+    // actions
+    let actionaDeclarations = ActionGenerator.generate(with: xib.actions)
     
     return """
     import UIKit
@@ -38,6 +43,9 @@ public func xib2Swift(
         required init?(coder: NSCoder) {
             fatalError("\\(#file), \\(#line)")
         }
+    
+        // MARK: Actions
+        \(actionaDeclarations)
     
         // MARK: UI Elements
         \(uiDeclarations)

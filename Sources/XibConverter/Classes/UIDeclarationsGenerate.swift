@@ -6,8 +6,69 @@
 //
 
 import Foundation
+let ignoredTags: [String] = []
 
-class UIDeclarationsGen {
+// default Rules was omitted for simplicity
+let defaultRules: [String: String] = [
+    "opaque": "isOpaque = false",
+    "userInteractionEnabled": "isUserInteractionEnabled = false",
+    "customClass": "customClass = "
+]
+
+func shouldIgnoreProperty(tag: String, key: String) -> Bool {
+    let propertyToIgnore: [String: [String]] = [
+        "label": ["minimumFontSize"],
+        "button": ["buttonType", "lineBreakMode"],
+        "imageView": ["catalog"],
+        "tableView": ["style"],
+        "collectionView": ["dataMode"],
+        "common": [
+            "horizontalHuggingPriority",
+            "verticalHuggingPriority",
+            "fixedFrame", "id",
+            "adjustsLetterSpacingToFitWidth"
+        ]
+    ]
+    
+    let ignoredRules = propertyToIgnore["common", default: []] + propertyToIgnore[tag, default: []]
+    return ignoredRules.contains(key)
+}
+
+typealias Rules = [String: [String: String]]
+
+let rules: Rules = [
+    "label": [
+        "adjustsFontSizeToFit": "adjustsFontSizeToFitWidth"
+    ],
+    "slider": [
+        "minValue": "minimumValue",
+        "maxValue": "maximumValue",
+    ],
+    "tableView" : [
+        "multipleTouchEnabled": "isMultipleTouchEnabled",
+        "clipSubviews": "clipsToBounds",
+    ],
+    "collectionView": [
+        "multipleTouchEnabled": "isMultipleTouchEnabled",
+        "directionalLockEnabled": "isDirectionalLockEnabled",
+        "pagingEnabled": "isPagingEnabled",
+        "prefetchingEnabled": "isPrefetchingEnabled",
+    ],
+    "common": [
+        "clipSubviews": "clipsToBounds",
+        "opaque": "isOpaque",
+        "userInteractionEnabled": "isUserInteractionEnabled"
+    ]
+]
+
+struct UIDeclarationConfig {
+    var visiblityModifier: String
+    var type: String
+    var initializationMethod: String
+    var beforeInstanceProperties: String
+}
+
+class UIDeclarationsGenerator {
     
     private var declationConfig = UIDeclarationConfig(
         visiblityModifier: "private ",
@@ -39,6 +100,8 @@ class UIDeclarationsGen {
         
         for node in nodes {
             declationConfig = setupDeclarationConfig(node: node)
+//            let  declationConfig = setupDeclarationConfig(node: node)
+
             var properties = resolveAttributes(node)
             properties += "\(generateDeclarationForSubNodes(tag: node.tag, nodes: node.content))"
             

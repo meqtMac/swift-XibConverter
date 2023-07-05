@@ -7,16 +7,23 @@
 
 import Foundation
 
+struct Outlet {
+    let property: String
+    let id: String
+}
+
 class Xib {
     public static var instance: Xib?
     
     private var baseNode: XibNode
     private var outlets: [Outlet] = []
     
+    public var actions: [Action] = []
     public var baseView: XibNode?
     public var constraints = [XibNode]()
     public var subviews: [XibNode] = []
-    public var tableIDtoName: IDtoName = [:]
+    /// dictionionary of id to name
+    public var idDict: [String: String] = [:]
     
     public init(xibData: Data) {
         let parser = XMLParser(data: xibData)
@@ -24,28 +31,39 @@ class Xib {
         parser.delegate = delegate
         parser.parse()
         baseNode = delegate.baseNode!
-        getOutlets(node: baseNode)
+        // outlet must executable before navigation to construct idDict
+        getOutletsAndActions(node: baseNode)
         navigateGettingInterestPoints(from: baseNode)
         Xib.instance = self
     }
     
     // recursively get the outlet
-    private func getOutlets(node: XibNode) {
+    private func getOutletsAndActions(node: XibNode) {
         if node.tag == "outlet" {
-            self.outlets.append(Outlet(property: node.attrs["property"]!, id: node.attrs["destination"]!))
+            self.outlets.append(
+                Outlet(
+                    property: node.attrs["property"]!,
+                    id: node.attrs["destination"]!
+                )
+            )
+        }
+        
+        if node.tag == "action" {
+            self.actions.append(
+                Action(name: node.attrs["selector"]!.replacingOccurrences(of: ":", with: ""))
+            )
         }
         
         for childNode in node.content {
-            getOutlets(node: childNode)
+            getOutletsAndActions(node: childNode)
         }
     }
     
     
     private func navigateGettingInterestPoints(from node: XibNode) {
-//        self.tableIDtoName[node.attrs["id"]!] = "\(node.tag)__\(node.attrs["id"]!.replacingOccurrences(of: "-", with: "_"))"
+        // without exception, name is set to tag + "__" + modifiedID
         if let id = node.attrs["id"] {
-            let modifiedID = id.replacingOccurrences(of: "-", with: "_")
-            tableIDtoName[id] = node.tag + "__" + modifiedID
+            idDict[id] = node.tag + "__" + id.replacingOccurrences(of: "-", with: "_")
         }
         
         switch node.tag {
@@ -57,14 +75,15 @@ class Xib {
             }
             self.subviews.append(node)
         case "viewLayoutGuide":
-            self.tableIDtoName[node.attrs["id"]!] = "view.safeAreaLayoutGuide"
+            self.idDict[node.attrs["id"]!] = "view.safeAreaLayoutGuide"
         default:
             break
         }
         
+        // override name if it has an outlet
         for outlet in self.outlets {
             if outlet.id == node.attrs["id"] {
-                self.tableIDtoName[node.attrs["id"]!] = outlet.property
+                self.idDict[node.attrs["id"]!] = outlet.property
             }
         }
         
@@ -77,16 +96,16 @@ class Xib {
         guard let father = node.father else { return }
         
         baseView = father
-        if father.attrs["id"] == nil {
-            baseView = father.father
-            father.attrs["id"] = father.father?.attrs["id"] ?? "baseView"
-        }
-        if let key = father.attrs["key"] {
-            tableIDtoName[father.attrs["id"]!] = key
-        }
+//        if father.attrs["id"] == nil {
+//            baseView = father.father
+//            father.attrs["id"] = father.father?.attrs["id"] ?? "baseView"
+//        }
+//        if let key = father.attrs["key"] {
+//            idDict[father.attrs["id"]!] = key
+//        }
     }
 }
 
 func resolveIDtoPropertyName(id: String) -> String {
-    return Xib.instance!.tableIDtoName[id]!
+    return Xib.instance!.idDict[id]!
 }
