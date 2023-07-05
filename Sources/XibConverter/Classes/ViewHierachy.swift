@@ -16,9 +16,7 @@ class ViewHierarchy {
         for node in subview.content {
             if !ignoredTags.contains(node.tag) {
                 let fatherPropertyName = getName(with: fatherId)
-//                resolveIdToPropertyName(id: fatherId)
                 let nodePropertyName = getName(with: node.attrs["id"] ?? "" )
-//                resolveIdToPropertyName(id: node.attrs["id"] ?? "")
                 hierarchyDeclaration += "\(fatherPropertyName).\(addMethod)(\(nodePropertyName))\n"
             }
         }
