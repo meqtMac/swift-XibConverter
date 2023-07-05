@@ -1,9 +1,13 @@
+//
+//  File.swift
+//  
+//
+//  Created by 蒋艺 on 2023/7/5.
+//
 
 import Foundation
 
-
-
-let xmlString = """
+let xmlData = """
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="21507" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
     <device id="retina4_0" orientation="portrait" appearance="light"/>
@@ -218,34 +222,4 @@ let xmlString = """
                 <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
      </connections>
 </document>
-"""
-
-public func xib2Swift(xibData: Data)  -> String {
-    let xib = Xib(xibData: xibData)
-    
-    let uiDeclarationGen = UIDeclarationsGen()
-//    let viewHierchyGen = ViewHierarchy()
-    let constraintsDeclarationsGen = ConstrainsDeclaritions()
-    
-    let uiDeclarations = uiDeclarationGen.generateUIDeclarations(subviews: xib.subviews)
-    let constraintsDeclarations = constraintsDeclarationsGen.generateConstraintsDeclarations(nodes: xib.constraints)
-    
-    var viewHierachy = ""
-    for subview in xib.subviews {
-        viewHierachy += ViewHierarchy.generateViewHierarchy(subview: subview)
-    }
-    
-    let baseViewDeclaration = uiDeclarationGen.generateBaseViewProperties(baseView: xib.baseView)
-    
-    return "\n// MARK: <------------- UI Elements --------------->\n" +
-    uiDeclarations +
-    "\n// MARK: <------------- View Hierachy --------------->\n\n" +
-    viewHierachy +
-    "\n// MARK: <------------- Constrains --------------->\n\n" +
-    constraintsDeclarations +
-    "\n// MARK: <------------- Base View Properties --------------->\n\n" +
-    baseViewDeclaration.replacingOccurrences(of: "\t", with: "")
-}
-
-let data = xmlString.data(using: .utf8)!
-print(xib2Swift(xibData: data))
+""".data(using: .utf8)!

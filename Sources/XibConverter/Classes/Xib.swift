@@ -6,7 +6,6 @@
 //
 
 import Foundation
-//import Foundation
 
 class Xib {
     public static var instance: Xib?
@@ -88,6 +87,6 @@ class Xib {
     }
 }
 
-public func resolveIDtoPropertyName(id: String) -> String {
+func resolveIDtoPropertyName(id: String) -> String {
     return Xib.instance!.tableIDtoName[id]!
 }

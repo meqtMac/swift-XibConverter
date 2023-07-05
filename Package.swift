@@ -4,12 +4,29 @@
 import PackageDescription
 
 let package = Package(
-    name: "MyXibParser",
+    name: "swift-XibConverter",
+    platforms: [
+        .macOS(.v11),
+        .iOS(.v11),
+        .watchOS(.v10),
+    ],
+    products: [
+        .library(
+            name: "XibConverter",
+            targets: [ "XibConverter" ]
+        )
+    ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
         // Targets can depend on other targets in this package and products from dependencies.
+        .target(
+            name: "XibConverter"
+        ),
         .executableTarget(
-            name: "MyXibParser"
+            name: "XibConverterExec",
+            dependencies: [
+                "XibConverter"
+            ]
         )
-   ]
+    ]
 )
