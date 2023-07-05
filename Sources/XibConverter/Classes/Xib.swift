@@ -93,8 +93,8 @@ class Xib {
                 resolveBaseView(node: node)
             }
             self.subviews.append(node)
-        case "viewLayoutGuide":
-            self.idDict[node.attrs["id"]!] = "view.safeAreaLayoutGuide"
+            // case "viewLayoutGuide":
+            // self.idDict[node.attrs["id"]!] = "view.safeAreaLayoutGuide"
         default:
             break
         }

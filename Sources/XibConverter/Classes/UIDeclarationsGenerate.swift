@@ -16,51 +16,56 @@ let defaultRules: [String: String] = [
 ]
 
 /// determine if a key for a `XibNode` with tag  should be ignore
-func shouldIgnoreProperty(tag: String, key: String) -> Bool {
-    let propertyToIgnore: [String: [String]] = [
-        "label": ["minimumFontSize"],
-        "button": ["buttonType", "lineBreakMode"],
-        "imageView": ["catalog"],
-        "tableView": ["style"],
-        "collectionView": ["dataMode"],
-        "common": [
-            "horizontalHuggingPriority",
-            "verticalHuggingPriority",
-            "fixedFrame", "id",
-            "adjustsLetterSpacingToFitWidth"
-        ]
-    ]
-    
-    let ignoredRules = propertyToIgnore["common", default: []] + propertyToIgnore[tag, default: []]
-    return ignoredRules.contains(key)
-}
+//func shouldIgnoreProperty(tag: String, key: String) -> Bool {
+//    let propertyToIgnore: [String: [String]] = [
+//        "label": ["minimumFontSize"],
+//        "button": ["buttonType", "lineBreakMode"],
+//        "imageView": ["catalog"],
+//        "tableView": ["style"],
+//        "collectionView": ["dataMode"],
+//        "common": [
+//            "horizontalHuggingPriority",
+//            "verticalHuggingPriority",
+//            "fixedFrame", "id",
+//            "adjustsLetterSpacingToFitWidth"
+//        ]
+//    ]
+//
+//    let ignoredRules = propertyToIgnore["common", default: []] + propertyToIgnore[tag, default: []]
+//    return ignoredRules.contains(key)
+//}
 
-typealias Rules = [String: [String: String]]
+//typealias Rules = [String: [String: String]]
 
-let rules: Rules = [
-    "label": [
-        "adjustsFontSizeToFit": "adjustsFontSizeToFitWidth"
-    ],
-    "slider": [
-        "minValue": "minimumValue",
-        "maxValue": "maximumValue",
-    ],
-    "tableView" : [
-        "multipleTouchEnabled": "isMultipleTouchEnabled",
-        "clipSubviews": "clipsToBounds",
-    ],
-    "collectionView": [
-        "multipleTouchEnabled": "isMultipleTouchEnabled",
-        "directionalLockEnabled": "isDirectionalLockEnabled",
-        "pagingEnabled": "isPagingEnabled",
-        "prefetchingEnabled": "isPrefetchingEnabled",
-    ],
+// MARK: Property for tags
+let propertyIgnoreDict: [String: [String]] = [
+    "label": ["minimumFontSize"],
+    "button": ["buttonType", "lineBreakMode"],
+    "imageView": ["catalog"],
+    "tableView": ["style"],
+    "collectionView": ["dataMode"],
     "common": [
-        "clipSubviews": "clipsToBounds",
-        "opaque": "isOpaque",
-        "userInteractionEnabled": "isUserInteractionEnabled"
+        "horizontalHuggingPriority",
+        "verticalHuggingPriority",
+        "fixedFrame", "id",
+        "adjustsLetterSpacingToFitWidth"
     ]
 ]
+
+/// determine whether a property should be ignored from property ignore Dict
+func ignoreProperty(tag: String, key: String) -> Bool {
+    var ignoreList: [String] = []
+    if let list = propertyIgnoreDict[tag] {
+        ignoreList.append(contentsOf: list)
+    }
+    if let list = propertyIgnoreDict["common"] {
+        ignoreList.append(contentsOf: list)
+    }
+    
+    return ignoreList.contains(key)
+}
+
+
 
 struct UIDeclarationConfig {
     var visiblityModifier: String
@@ -101,8 +106,8 @@ class UIDeclarationsGenerator {
         
         for node in nodes {
             declationConfig = setupDeclarationConfig(node: node)
-//            let  declationConfig = setupDeclarationConfig(node: node)
-
+            //            let  declationConfig = setupDeclarationConfig(node: node)
+            
             var properties = resolveAttributes(node)
             properties += "\(generateDeclarationForSubNodes(tag: node.tag, nodes: node.content))"
             
@@ -120,11 +125,12 @@ class UIDeclarationsGenerator {
         let attributes = node.attrs
         var property = "\n"
         for (key, value) in attributes {
-            if shouldIgnoreProperty(tag: node.tag, key: key) {
-                continue
-            }
+            //            if shouldIgnoreProperty(tag: node.tag, key: key) {
+            //                continue
+            //            }
+            if ignoreProperty(tag: node.tag, key: key) { continue }
             
-            let attributeDeclaration = "\t\(node.tag).\(resolvePropertyName(node.tag, key)) = \(resolveResultValue(value, property: key, node: node))\n"
+            let attributeDeclaration = "\t\(node.tag).\(UIDeclarationsGenerator.uikitPropertyName(node.tag, key)) = \(resolveResultValue(value, property: key, node: node))\n"
             if let attr = defaultRules[key] {
                 if attributeDeclaration == "\t\(node.tag).\(attr)\n" {
                     continue
@@ -135,14 +141,65 @@ class UIDeclarationsGenerator {
         return property
     }
     
-    private func resolvePropertyName(_ tag: String, _ key: String) -> String {
-        if rules[tag] == nil {
-            return rules["common"]?[key] ?? key
+    static let propertyReNameDict: [String: [String: String] ] = [
+        "label": [
+            "adjustsFontSizeToFit": "adjustsFontSizeToFitWidth"
+        ],
+        "slider": [
+            "minValue": "minimumValue",
+            "maxValue": "maximumValue",
+        ],
+        "tableView" : [
+            "multipleTouchEnabled": "isMultipleTouchEnabled",
+            "clipsSubviews": "clipsToBounds",
+        ],
+        "collectionView": [
+            "multipleTouchEnabled": "isMultipleTouchEnabled",
+            "directionalLockEnabled": "isDirectionalLockEnabled",
+            "pagingEnabled": "isPagingEnabled",
+            "prefetchingEnabled": "isPrefetchingEnabled",
+        ],
+        "common": [
+            "clipsSubviews": "clipsToBounds",
+            "opaque": "isOpaque",
+            "userInteractionEnabled": "isUserInteractionEnabled",
+            "scrollEnabled" : "isScrollEnabled",
+            "multipleTouchEnabled": "isMultipleTouchEnabled"
+        ]
+    ]
+    
+    /**
+     rename property name if needed
+     ```xml
+     <textView
+     clipsSubviews="YES"
+     multipleTouchEnabled="YES"
+     userInteractionEnabled="NO"
+     contentMode="scaleToFill"
+     textAlignment="natural"
+     translatesAutoresizingMaskIntoConstraints="NO"
+     id="1hh-mT-vxi">
+     ```
+     */
+    static func uikitPropertyName(_ tag: String, _ key: String) -> String {
+        //        if propertyNameDict[tag] == nil {
+        //            return propertyNameDict["common"]?[key] ?? key
+        //        }
+        //        return propertyNameDict[tag]?[key] ?? propertyNameDict["common"]?[key] ?? key
+        if let tagSpecificReNameDict = propertyReNameDict[tag] {
+            if let newName = tagSpecificReNameDict[key] {
+                return newName
+            }
         }
-        return rules[tag]?[key] ?? rules["common"]?[key] ?? key
+        if let commonReNameDict = propertyReNameDict["common"] {
+            if let newName = commonReNameDict[key] {
+                return newName
+            }
+        }
+        return key
     }
     
-    private func resolveResultValue(_ result: String, property: String, node: XibNode? = nil) -> String {
+    func resolveResultValue(_ result: String, property: String, node: XibNode? = nil) -> String {
         let propertyToResolve: [String: () -> String] = [
             "text": { return "\"\(result)\"" },
             "image": { return node != nil ? "\(Resolve.image(node: node!)!)" : "" },
