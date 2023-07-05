@@ -12,11 +12,22 @@ struct Outlet {
     let id: String
 }
 
+/// if node have no id, or Xib have no instance yet, return false by default
+func hasOutlet(node: XibNode) throws -> Bool {
+    guard let id = node.attrs["id"] else{
+        throw XibConverterError.missingAttribute("id")
+    }
+    guard let instance = Xib.instance else {
+        throw XibConverterError.missingXibInstance
+    }
+    return instance.outlets.map {$0.id}.contains(id)
+}
+
 class Xib {
     public static var instance: Xib?
     
     private var baseNode: XibNode
-    private var outlets: [Outlet] = []
+    public var outlets: [Outlet] = []
     
     public var actions: [Action] = []
     public var baseView: XibNode?
@@ -106,6 +117,6 @@ class Xib {
     }
 }
 
-func resolveIDtoPropertyName(id: String) -> String {
+func getName(with id: String) -> String {
     return Xib.instance!.idDict[id]!
 }

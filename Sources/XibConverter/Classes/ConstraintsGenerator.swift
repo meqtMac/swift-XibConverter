@@ -135,23 +135,23 @@ class ConstraintsGenerator {
             
             if (node.attrs["firstAttribute"] == "width" || node.attrs["firstAttribute"] == "height") && node.attrs["secondItem"] == nil {
                 generateConstraintWithConstant(
-                    element: resolveIDtoPropertyName(id: grandFather.attrs["id"]!),
+                    element: getName(with: grandFather.attrs["id"]!),
                     anchor: node.attrs["firstAttribute"]!,
                     constant: node.attrs["constant"]
                 )
             } else if node.attrs["firstItem"] == nil {
                 generateConstraint(
-                    element: resolveIDtoPropertyName(id: grandFather.attrs["id"]!),
+                    element: getName(with: grandFather.attrs["id"]!),
                     anchor: node.attrs["firstAttribute"]!,
-                    secondElement: resolveIDtoPropertyName(id: node.attrs["secondItem"]!),
+                    secondElement: getName(with: node.attrs["secondItem"]!),
                     secondAnchor: node.attrs["secondAttribute"]!.replacingOccurrences(of: "Margin", with: ""),
                     parameter: parameter
                 )
             } else {
                 generateConstraint(
-                    element: resolveIDtoPropertyName(id: node.attrs["firstItem"]!),
+                    element: getName(with: node.attrs["firstItem"]!),
                     anchor: node.attrs["firstAttribute"]!,
-                    secondElement: resolveIDtoPropertyName(id:node.attrs["secondItem"]!),
+                    secondElement: getName(with: node.attrs["secondItem"]!),
                     secondAnchor: node.attrs["secondAttribute"]!.replacingOccurrences(of: "Margin", with: ""),
                     parameter: parameter
                 )

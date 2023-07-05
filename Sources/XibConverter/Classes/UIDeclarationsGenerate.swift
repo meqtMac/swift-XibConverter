@@ -15,6 +15,7 @@ let defaultRules: [String: String] = [
     "customClass": "customClass = "
 ]
 
+/// determine if a key for a `XibNode` with tag  should be ignore
 func shouldIgnoreProperty(tag: String, key: String) -> Bool {
     let propertyToIgnore: [String: [String]] = [
         "label": ["minimumFontSize"],
@@ -77,10 +78,10 @@ class UIDeclarationsGenerator {
         beforeInstanceProperties: ""
     )
     
-    private func setupDeclarationConfig(node: XibNode? = nil) -> UIDeclarationConfig {
+    private func setupDeclarationConfig(node: XibNode ) -> UIDeclarationConfig {
         return UIDeclarationConfig(
-            visiblityModifier: "private ",
-            type: "UI\((node?.tag ?? "").capitalizeFirstLetter())",
+            visiblityModifier: ( (try? hasOutlet(node: node)) ) ?? false ? "public " : "private ",
+            type: "UI\((node.tag).capitalizeFirstLetter())",
             initializationMethod: "()",
             beforeInstanceProperties: ""
         )
@@ -106,7 +107,7 @@ class UIDeclarationsGenerator {
             properties += "\(generateDeclarationForSubNodes(tag: node.tag, nodes: node.content))"
             
             uiDeclarations += """
-            \n\(declationConfig.visiblityModifier)lazy var \(resolveIDtoPropertyName(id: node.attrs["id"]!)): \(declationConfig.type) = {
+            \n\(declationConfig.visiblityModifier)lazy var \(getName(with: node.attrs["id"]!)): \(declationConfig.type) = {
                 \(declationConfig.beforeInstanceProperties)\tlet \(node.tag) = \(declationConfig.type)\(declationConfig.initializationMethod)\(properties)
                 \treturn \(node.tag)
             }()\n
@@ -306,7 +307,7 @@ class UIDeclarationsGenerator {
         var property = ""
         if let baseView = baseView {
             for node in baseView.content {
-                property += resolveSubNode(resolveIDtoPropertyName(id: baseView.attrs["id"]!), node)
+                property += resolveSubNode(getName(with: baseView.attrs["id"]!), node)
             }
         }
         return property
