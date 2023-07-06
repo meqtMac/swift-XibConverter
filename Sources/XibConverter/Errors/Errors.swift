@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum XibConverterError: Error {
+public enum XibConverterError: Error {
     case missingAttribute(String)
     case missingXibInstance
 }

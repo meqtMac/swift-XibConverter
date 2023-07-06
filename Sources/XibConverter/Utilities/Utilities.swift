@@ -19,7 +19,7 @@ extension String {
         if self.count < 1 {
             return self
         }
-        return prefix(1).lowercased() + dropFirst()
+        return self.prefix(1).lowercased() + dropFirst()
     }
 }
 

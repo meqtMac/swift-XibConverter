@@ -44,5 +44,14 @@ final class propertyRenameTests: XCTestCase {
         XCTAssertEqual("isMultipleTouchEnabled", UIDeclarationsGenerator.uikitPropertyName(tag, keys[1]))
         XCTAssertEqual("isScrollEnabled", UIDeclarationsGenerator.uikitPropertyName(tag, keys[2]))
     }
+    
+    func testStringUtility() {
+        let testSource1 = "a"
+        let testSource2 = "A"
+        let testSource3 = ""
+        XCTAssertEqual("A", testSource1.capitalizeFirstLetter())
+        XCTAssertEqual("a", testSource2.lowerFirstLetter())
+        XCTAssertEqual("", testSource3.capitalizeFirstLetter())
+    }
 
 }
