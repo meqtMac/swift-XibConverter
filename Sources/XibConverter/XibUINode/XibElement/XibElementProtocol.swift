@@ -12,10 +12,25 @@ protocol XmlElementInitable {
 
 protocol XibElement: XmlElementInitable { }
 
-protocol XibViewElement: XibElement {
-    
+protocol XibViewProtocol: XibElement {
+    var id: String { get }
 }
 
+protocol XibTextViewProtocol: XibViewProtocol {
+    
+}
+protocol XibButtonProtocol: XibViewProtocol {
+    
+}
+protocol XibLabelProtocol: XibViewProtocol {
+    
+}
+protocol XibPageControlProtocol: XibViewProtocol {
+    
+}
+protocol XibImageViewProtocol: XibViewProtocol {
+    
+}
 /// Xib Connection
 protocol XibConnectionElement: XibElement { }
 
@@ -44,7 +59,6 @@ protocol XibOutletProtocol: XibConnectionElement {
  */
 protocol XibActionProtocol: XibConnectionElement {
     associatedtype EventType
-    
     var selector: String { get }
     var destionation: String { get }
     var eventType: EventType { get }
@@ -56,9 +70,47 @@ protocol XibResourceElement: XibElement {
     
 }
 
+/** Property of a view
+ ```xml
+ <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
+ <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+ <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+ <point key="canvasLocation" x="90.5" y="128.5"/>
+ ```
+ */
 protocol XibPropertyElement: XibElement {
+    var key: String { get }
+}
+
+protocol XibColorProtocol: XibPropertyElement {
+}
+protocol XibImageProtocol: XibPropertyElement {
     
 }
+
+protocol XibAutoResizingMaskProtocol: XibPropertyElement {
+}
+
+protocol XibStringProtocol: XibPropertyElement {
+    
+}
+
+protocol XibFontDescriptionProtocol: XibPropertyElement {
+    
+}
+protocol XibTextInputTraitsProtocol: XibPropertyElement {
+    
+}
+protocol XibDataDetectorTypeProtocol: XibPropertyElement {
+    
+}
+protocol XibCustomNilProtocol: XibPropertyElement {
+    
+}
+protocol XibStateProtocol: XibPropertyElement {
+    
+}
+
 
 /** Xib Constraint
  ```xml
@@ -82,3 +134,10 @@ protocol XibConstraintProtocol: XibElement {
     var constant: CGFloat { get }
     var id: String { get }
 }
+
+protocol XibSubViewProtocol: XibElement, Identifiable {
+    var parentID: String { get }
+    var childrenID: [String] { get set }
+    mutating func addchildID(id: String) 
+}
+

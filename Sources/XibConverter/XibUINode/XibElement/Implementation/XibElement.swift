@@ -38,39 +38,83 @@ import Foundation
  
  ### views there must be one root view.
  */
-struct XibSubView: XibElement {
+struct XibSubView: XibSubViewProtocol {
+    let id = UUID()
     init(attributes: [String: String]) throws {
-        fatalError("Haven't implemented")
+        throw XibSubViewInitError.initUsingAttributes
+    }
+    
+    init(parentID: String) {
+        self.parentID = parentID
+        self.childrenID = []
     }
     
     let parentID: String
     var childrenID: [String]
+    mutating func addchildID(id: String) {
+        childrenID.append(id)
+    }
+}
+
+// place holder, should never be used
+struct XibIgnoredElement: XibElement {
+    init(attributes: [String : String]) throws {
+        throw XibElementInitError.ignoredElementInited
+    }
 }
 
 /// View
-struct XibView: XibElement {
+struct XibView: XibViewProtocol {
+    var id: String
+    
     init(attributes: [String: String]) throws {
         // TODO: Implemenation
-        fatalError()
+        self.id = attributes["id"]!
     }
 }
 
-struct XibTextView: XibElement {
+struct XibTextView: XibTextViewProtocol {
+    var id: String
+    
     init(attributes: [String : String]) throws {
         // TODO: Implementation
-        fatalError()
+//        fatalError()
+        self.id = attributes["id"]!
     }
 }
-struct XibButton: XibElement {
+
+struct XibButton: XibButtonProtocol {
+    var id: String
+    
     init(attributes: [String : String]) throws {
         // TODO: Implementation
-        fatalError()
+//        fatalError()
+        self.id = attributes["id"]!
     }
 }
-struct XibLabel: XibElement {
+
+struct XibLabel: XibLabelProtocol {
+    var id: String
+    
     init(attributes: [String : String]) throws {
         // TODO: implemenatation
-        fatalError()
+//        fatalError()
+        self.id = attributes["id"]!
+    }
+}
+
+struct XibPageControl: XibPageControlProtocol {
+    var id: String
+    
+    init(attributes: [String: String]) throws {
+        self.id = attributes["id"]!
+    }
+}
+
+struct XibImageView: XibImageViewProtocol {
+    var id: String
+    init(attributes: [String : String]) throws {
+        self.id = attributes["id"]!
     }
 }
 
@@ -238,16 +282,98 @@ struct XibConstraint: XibConstraintProtocol {
             throw XibConstraintInitError.undefineAttributeKey("multiplier: \(rawString)")
         }
         guard let first = components.first, let last = components.last, let firstDouble = Double(first), let secondDouble = Double(last) else {
-                throw XibConstraintInitError.undefineAttributeKey("multiplier: \(rawString)")
+            throw XibConstraintInitError.undefineAttributeKey("multiplier: \(rawString)")
         }
         return CGFloat( firstDouble / secondDouble )
     }
 }
 
 
-struct XibColor: XibElement {
+struct XibColor: XibColorProtocol {
+    var key: String
+    
     init(attributes: [String : String]) throws {
         //TODO: implementation
         fatalError()
+    }
+}
+
+struct XibImage: XibImageProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: Implementation
+        fatalError()
+    }
+}
+
+struct XibAutoResizingMask: XibAutoResizingMaskProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibString: XibStringProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibFontDescription: XibFontDescriptionProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibTextInputTraits: XibTextInputTraitsProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibDataDetectorType: XibDataDetectorTypeProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibCustomNil: XibCustomNilProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+struct XibState: XibStateProtocol {
+    var key: String
+    
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+        fatalError()
+    }
+}
+
+// MARK: Empty Element
+struct XibEmptyElement: XibElement {
+    init(attributes: [String : String]) throws {
+        // TODO: implemenatation
+//        fatalError()
     }
 }
