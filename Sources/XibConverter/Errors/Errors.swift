@@ -11,3 +11,12 @@ public enum XibConverterError: Error {
     case missingAttribute(String)
     case missingXibInstance
 }
+
+public enum XibElementInitError: Error {
+    case missingAttribute(String)
+    case undefinedKey
+}
+
+public enum XibConstraintInitError: Error {
+    case undefineAttributeKey(String)
+}
