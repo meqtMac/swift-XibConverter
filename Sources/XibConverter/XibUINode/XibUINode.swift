@@ -70,6 +70,5 @@ enum XibUINode: String {
     case inset // TODO: unmanaged
     case viewLayoutGuide // TODO: unmanaged
     case systemColor // ignored
-//    case depolyment //ignored
+    case adaptation // ignored
 }
-

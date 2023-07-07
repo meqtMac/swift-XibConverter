@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "swift-XibConverter",
     platforms: [
-        .macOS(.v11),
+        .macOS(.v13),
         .iOS(.v11),
         .watchOS(.v10),
     ],

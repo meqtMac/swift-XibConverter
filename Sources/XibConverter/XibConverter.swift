@@ -61,9 +61,12 @@ public func xib2Swift(
             \(constraintsDeclarations)
         }
     }
-    
-    #Preview {
-        \( (className ?? "<#CustomView#>") + "()")
+    if #available(iOS 17, *) {
+        #Preview {
+            \( (className ?? "<#CustomView#>") + "()")
+        }
+    } else {
+        // Fallback on earlier versions
     }
     """
 }
