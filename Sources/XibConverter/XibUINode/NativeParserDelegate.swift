@@ -6,7 +6,7 @@
 //
 
 import Foundation
-final class NativeParserDelegate: NSObject, XMLParserDelegate {
+public final class NativeParserDelegate: NSObject, XMLParserDelegate {
     
     var baseViewID: String?
     var views: [any XibViewProtocol] = []

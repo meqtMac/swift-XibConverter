@@ -6,33 +6,33 @@
 //
 import Foundation
 
-protocol XmlElementInitable {
+public protocol XmlElementInitable {
     init(attributes: [String: String]) throws
 }
 
-protocol XibElement: XmlElementInitable { }
+public protocol XibElement: XmlElementInitable { }
 
-protocol XibViewProtocol: XibElement {
+public protocol XibViewProtocol: XibElement {
     var id: String { get }
 }
 
-protocol XibTextViewProtocol: XibViewProtocol {
+public protocol XibTextViewProtocol: XibViewProtocol {
     
 }
-protocol XibButtonProtocol: XibViewProtocol {
+public protocol XibButtonProtocol: XibViewProtocol {
     
 }
-protocol XibLabelProtocol: XibViewProtocol {
+public protocol XibLabelProtocol: XibViewProtocol {
     
 }
-protocol XibPageControlProtocol: XibViewProtocol {
+public protocol XibPageControlProtocol: XibViewProtocol {
     
 }
-protocol XibImageViewProtocol: XibViewProtocol {
+public protocol XibImageViewProtocol: XibViewProtocol {
     
 }
 /// Xib Connection
-protocol XibConnectionElement: XibElement { }
+public protocol XibConnectionElement: XibElement { }
 
 /** Xib Outlet
  ### XML IB example
@@ -43,7 +43,7 @@ protocol XibConnectionElement: XibElement { }
 </connections>
  ```
  */
-protocol XibOutletProtocol: XibConnectionElement {
+public protocol XibOutletProtocol: XibConnectionElement {
     var property: String { get }
     var destination: String { get }
     var id: String { get }
@@ -57,7 +57,7 @@ protocol XibOutletProtocol: XibConnectionElement {
  </connections>
 ```
  */
-protocol XibActionProtocol: XibConnectionElement {
+public protocol XibActionProtocol: XibConnectionElement {
     associatedtype EventType
     var selector: String { get }
     var destionation: String { get }
@@ -66,7 +66,7 @@ protocol XibActionProtocol: XibConnectionElement {
 }
 
 
-protocol XibResourceElement: XibElement {
+public protocol XibResourceElement: XibElement {
     
 }
 
@@ -78,36 +78,36 @@ protocol XibResourceElement: XibElement {
  <point key="canvasLocation" x="90.5" y="128.5"/>
  ```
  */
-protocol XibPropertyElement: XibElement {
+public protocol XibPropertyElement: XibElement {
     var key: String { get }
 }
 
-protocol XibColorProtocol: XibPropertyElement {
+public protocol XibColorProtocol: XibPropertyElement {
 }
-protocol XibImageProtocol: XibPropertyElement {
+public protocol XibImageProtocol: XibPropertyElement {
     
 }
 
-protocol XibAutoResizingMaskProtocol: XibPropertyElement {
+public protocol XibAutoResizingMaskProtocol: XibPropertyElement {
 }
 
-protocol XibStringProtocol: XibPropertyElement {
+public protocol XibStringProtocol: XibPropertyElement {
     
 }
 
-protocol XibFontDescriptionProtocol: XibPropertyElement {
+public protocol XibFontDescriptionProtocol: XibPropertyElement {
     
 }
-protocol XibTextInputTraitsProtocol: XibPropertyElement {
+public protocol XibTextInputTraitsProtocol: XibPropertyElement {
     
 }
-protocol XibDataDetectorTypeProtocol: XibPropertyElement {
+public protocol XibDataDetectorTypeProtocol: XibPropertyElement {
     
 }
-protocol XibCustomNilProtocol: XibPropertyElement {
+public protocol XibCustomNilProtocol: XibPropertyElement {
     
 }
-protocol XibStateProtocol: XibPropertyElement {
+public protocol XibStateProtocol: XibPropertyElement {
     
 }
 
@@ -121,7 +121,7 @@ protocol XibStateProtocol: XibPropertyElement {
  <constraint firstAttribute="width" secondItem="Fgp-vx-obw" secondAttribute="height" multiplier="265:14" id="xM4-tE-1T3"/>
  ```
  */
-protocol XibConstraintProtocol: XibElement {
+public protocol XibConstraintProtocol: XibElement {
     associatedtype Item: Equatable
     associatedtype ConstraintAttribute
     
@@ -135,7 +135,7 @@ protocol XibConstraintProtocol: XibElement {
     var id: String { get }
 }
 
-protocol XibSubViewProtocol: XibElement, Identifiable {
+public protocol XibSubViewProtocol: XibElement, Identifiable {
     var parentID: String { get }
     var childrenID: [String] { get set }
     mutating func addchildID(id: String) 
