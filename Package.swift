@@ -32,6 +32,9 @@ let package = Package(
             name: "XibConverterTests",
             dependencies: [
                 "XibConverter"
+            ],
+            resources: [
+                .copy("Resources/")
             ]
         )
     ]

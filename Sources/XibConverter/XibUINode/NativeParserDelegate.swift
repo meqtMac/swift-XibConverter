@@ -6,10 +6,6 @@
 //
 
 import Foundation
-
-
-
-
 final class NativeParserDelegate: NSObject, XMLParserDelegate {
     
     var baseViewID: String?
