@@ -584,7 +584,7 @@ public enum XibUINode: String {
      @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *buttons;
      ```
      */
-    case outletCollections
+    case outletCollection
     
     // View Hierachy
     case subview = "subviews"
