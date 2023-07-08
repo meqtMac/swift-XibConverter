@@ -107,6 +107,8 @@ public protocol XibViewProtocol: XibElement {
 /// `UIKit.UICollectionView`
 public protocol XibCollectionViewProtocol: XibScrollViewProtocol {
     
+    // "dataMode":        ["none"]
+    var dataMode: String? { get }
 }
 
 /// `UIKit.UICollectionViewCell`

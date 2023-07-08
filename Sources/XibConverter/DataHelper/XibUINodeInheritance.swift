@@ -122,12 +122,10 @@ public class InheritanceTree {
     
     private func printTagExpresion() {
         let expression = """
-        print(\"""
-              "\(value)": \\(my\(value).tags),
-              \"""
-        )
+        "\(self.value)": [
+        \t\(self.tags.sorted().map({"\"\($0)\""}).joined(separator: ",\n\t"))],
         """
-        print(expression)
+        print( expression )
     }
     
     /// print expression for your self and child
@@ -215,30 +213,155 @@ let myvisualEffectView = InheritanceTree("visualEffectView", tagAttributeDicts["
 )
 let mysearchBar = InheritanceTree("searchBar", tagAttributeDicts["searchBar"]!.keys.sorted(), myview
 )
+
 let protocolTagDict = [
-    "view": ["misplaced", "userInteractionEnabled", "hidden", "placeholderIntrinsicWidth", "clipsSubviews", "opaque", "ambiguous", "verticalCompressionResistancePriority", "customClass", "alpha", "autoresizesSubviews", "verifyAmbiguity", "key", "fixedFrame", "placeholderIntrinsicHeight", "id", "horizontalCompressionResistancePriority", "insetsLayoutMarginsFromSafeArea", "horizontalHuggingPriority", "verticalHuggingPriority", "clearsContextBeforeDrawing", "translatesAutoresizingMaskIntoConstraints", "tag", "multipleTouchEnabled", "contentMode", "userLabel"], // ✅
-    "scrollView": ["bouncesZoom", "alwaysBounceHorizontal", "showsHorizontalScrollIndicator", "delaysContentTouches", "keyboardDismissMode", "directionalLockEnabled", "scrollEnabled", "showsVerticalScrollIndicator", "alwaysBounceVertical", "pagingEnabled", "bounces"],
-    "collectionView": ["dataMode"],
-    "tableView": ["contentInsetAdjustmentBehavior", "separatorStyle", "estimatedSectionFooterHeight", "allowsSelection", "contentViewInsetsToSafeArea", "estimatedRowHeight", "sectionHeaderHeight", "rowHeight", "sectionFooterHeight", "estimatedSectionHeaderHeight", "sectionIndexMinimumDisplayRowCount", "style"],
-    "textView": ["usesAttributedText", "selectable", "textAlignment", "text", "editable"],
-    "collectionReusableView": [],
-    "collectionViewCell": [],
-    "tableViewCell": ["rowHeight", "selectionStyle", "indentationWidth", "preservesSuperviewLayoutMargins", "reuseIdentifier"],
-    "tableViewCellContentView": ["tableViewCell", "preservesSuperviewLayoutMargins"],
-    "stackView": ["semanticContentAttribute", "spacing", "alignment", "customModuleProvider", "axis", "distribution"],
-    "activityIndicatorView": ["hidesWhenStopped", "style"],
-    "imageView": ["adjustsImageSizeForAccessibilityContentSizeCategory", "highlightedImage", "image"],
-    "pickerView": [],
-    "progressView": [],
-    "control": [],
-    "button": ["contentVerticalAlignment", "hasAttributedTitle", "contentHorizontalAlignment", "enabled", "buttonType", "adjustsImageWhenHighlighted", "semanticContentAttribute", "selected", "lineBreakMode"],
-    "datePicker": ["datePickerMode", "contentVerticalAlignment", "contentHorizontalAlignment", "style"],
-    "pageControl": ["enabled", "contentVerticalAlignment", "contentHorizontalAlignment", "hidesForSinglePage", "numberOfPages"],
-    "segmentedControl": ["contentHorizontalAlignment", "contentVerticalAlignment", "segmentControlStyle", "selectedSegmentIndex"],
-    "slider": ["value", "contentHorizontalAlignment", "maxValue", "contentVerticalAlignment", "minValue"],
-    "switch": ["contentHorizontalAlignment", "on", "contentVerticalAlignment"],
-    "label": ["adjustsFontForContentSizeCategory", "baselineAdjustment", "numberOfLines", "adjustsLetterSpacingToFitWidth", "text", "adjustsFontSizeToFit", "lineBreakMode", "minimumScaleFactor", "minimumFontSize", "textAlignment", "usesAttributedText"],
-    "visualEffectView": [],
-    "searchBar": ["backgroundImage", "searchBarStyle", "placeholder", "showsCancelButton"],
+    "view": [
+        "alpha",
+        "ambiguous",
+        "autoresizesSubviews",
+        "clearsContextBeforeDrawing",
+        "clipsSubviews",
+        "contentMode",
+        "customClass",
+        "fixedFrame",
+        "hidden",
+        "horizontalCompressionResistancePriority",
+        "horizontalHuggingPriority",
+        "id",
+        "insetsLayoutMarginsFromSafeArea",
+        "key",
+        "misplaced",
+        "multipleTouchEnabled",
+        "opaque",
+        "placeholderIntrinsicHeight",
+        "placeholderIntrinsicWidth",
+        "tag",
+        "translatesAutoresizingMaskIntoConstraints",
+        "userInteractionEnabled",
+        "userLabel",
+        "verifyAmbiguity",
+        "verticalCompressionResistancePriority",
+        "verticalHuggingPriority"],
+    "scrollView": [
+        "alwaysBounceHorizontal",
+        "alwaysBounceVertical",
+        "bounces",
+        "bouncesZoom",
+        "delaysContentTouches",
+        "directionalLockEnabled",
+        "keyboardDismissMode",
+        "pagingEnabled",
+        "scrollEnabled",
+        "showsHorizontalScrollIndicator",
+        "showsVerticalScrollIndicator"],
+    "collectionView": [
+        "dataMode"],
+    "tableView": [
+        "allowsSelection",
+        "contentInsetAdjustmentBehavior",
+        "contentViewInsetsToSafeArea",
+        "estimatedRowHeight",
+        "estimatedSectionFooterHeight",
+        "estimatedSectionHeaderHeight",
+        "rowHeight",
+        "sectionFooterHeight",
+        "sectionHeaderHeight",
+        "sectionIndexMinimumDisplayRowCount",
+        "separatorStyle",
+        "style"],
+    "textView": [
+        "editable",
+        "selectable",
+        "text",
+        "textAlignment",
+        "usesAttributedText"],
+    "collectionReusableView": [
+        ],
+    "collectionViewCell": [
+        ],
+    "tableViewCell": [
+        "indentationWidth",
+        "preservesSuperviewLayoutMargins",
+        "reuseIdentifier",
+        "rowHeight",
+        "selectionStyle"],
+    "tableViewCellContentView": [
+        "preservesSuperviewLayoutMargins",
+        "tableViewCell"],
+    "stackView": [
+        "alignment",
+        "axis",
+        "customModuleProvider",
+        "distribution",
+        "semanticContentAttribute",
+        "spacing"],
+    "activityIndicatorView": [
+        "hidesWhenStopped",
+        "style"],
+    "imageView": [
+        "adjustsImageSizeForAccessibilityContentSizeCategory",
+        "highlightedImage",
+        "image"],
+    "pickerView": [
+        ],
+    "progressView": [
+        ],
+    "control": [
+        ],
+    "button": [
+        "adjustsImageWhenHighlighted",
+        "buttonType",
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "enabled",
+        "hasAttributedTitle",
+        "lineBreakMode",
+        "selected",
+        "semanticContentAttribute"],
+    "datePicker": [
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "datePickerMode",
+        "style"],
+    "pageControl": [
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "enabled",
+        "hidesForSinglePage",
+        "numberOfPages"],
+    "segmentedControl": [
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "segmentControlStyle",
+        "selectedSegmentIndex"],
+    "slider": [
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "maxValue",
+        "minValue",
+        "value"],
+    "switch": [
+        "contentHorizontalAlignment",
+        "contentVerticalAlignment",
+        "on"],
+    "label": [
+        "adjustsFontForContentSizeCategory",
+        "adjustsFontSizeToFit",
+        "adjustsLetterSpacingToFitWidth",
+        "baselineAdjustment",
+        "lineBreakMode",
+        "minimumFontSize",
+        "minimumScaleFactor",
+        "numberOfLines",
+        "text",
+        "textAlignment",
+        "usesAttributedText"],
+    "visualEffectView": [
+        ],
+    "searchBar": [
+        "backgroundImage",
+        "placeholder",
+        "searchBarStyle",
+        "showsCancelButton"],
 ]
 #endif
