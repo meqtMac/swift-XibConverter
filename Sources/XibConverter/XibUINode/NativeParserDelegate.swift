@@ -43,7 +43,7 @@ public final class NativeParserDelegate: NSObject, XMLParserDelegate {
         subViewIDStack.append(subviewID)
     }
     
-    func parser(_ parser: XMLParser,
+    public func parser(_ parser: XMLParser,
                 didStartElement elementName: String,
                 namespaceURI: String?,
                 qualifiedName qName: String?,
@@ -56,22 +56,26 @@ public final class NativeParserDelegate: NSObject, XMLParserDelegate {
             switch node {
                 // views
             case .view:
-                let view = try XibView(attributes: attributeDict)
-                viewHelper(view: view)
+//                let view = try XibView(attributes: attributeDict)
+//                viewHelper(view: view)
+                break
             case .textView:
-                let view = try XibTextView(attributes: attributeDict)
-                viewHelper(view: view)
+//                let view = try XibTextView(attributes: attributeDict)
+//                viewHelper(view: view)
+                break
             case .button:
-                let view = try XibButton(attributes: attributeDict)
-                viewHelper(view: view)
+//                let view = try XibButton(attributes: attributeDict)
+//                viewHelper(view: view)
+                break
             case .label:
-                let label = try XibLabel(attributes: attributeDict)
-                viewHelper(view: label)
+//                let label = try XibLabel(attributes: attributeDict)
+//                viewHelper(view: label)
+                break
             case .pageControl:
-                let pageControl = try XibPageControl(attributes: attributeDict)
-                viewHelper(view: pageControl)
-                
+//                let pageControl = try XibPageControl(attributes: attributeDict)
+//                viewHelper(view: pageControl)
                 // properites
+                break
             case .color:
                 //                print("color: \(attributeDict)")
                 break
@@ -129,7 +133,7 @@ public final class NativeParserDelegate: NSObject, XMLParserDelegate {
         }
     }
     
-    func parser(_ parser: XMLParser,
+    public func parser(_ parser: XMLParser,
                 didEndElement elementName: String,
                 namespaceURI: String?,
                 qualifiedName qName: String?) {

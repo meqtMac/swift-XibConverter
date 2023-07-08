@@ -7,7 +7,7 @@ let package = Package(
     name: "swift-XibConverter",
     platforms: [
         .macOS(.v13),
-        .iOS(.v11),
+        .iOS(.v16),
         .watchOS(.v10),
     ],
     products: [

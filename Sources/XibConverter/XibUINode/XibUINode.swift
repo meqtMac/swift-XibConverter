@@ -9,104 +9,11 @@ import Foundation
 
 /// Serialize Xib Documents
 public enum XibUINode: String {
-    /// UIElement with many attributes
+    /// ``XibViewProtocol``
     case view
-    case imageView
-    case textView
-    /**
-     ```xml
-     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vuI-Rg-Vc4" customClass="WPLimitedTextField">
-         <rect key="frame" x="15" y="0.0" width="345" height="45"/>
-         <color key="textColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-         <fontDescription key="fontDescription" type="system" pointSize="16"/>
-         <textInputTraits key="textInputTraits"/>
-     </textField>
-     ```
-     */
-    case textField
-    case button
-    case label
-    /**
-     ```xml
-     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="32Q-82-d4m">
-         <rect key="frame" x="14" y="502" width="347" height="31"/>
-         <color key="tintColor" red="0.14117647058823529" green="0.77254901960784317" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
-     </slider>
-     ```
-     */
-    case slider
-    /**
-     ```xml
-     <pageControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="8q3-dv-Ne9">
-         <rect key="frame" x="0.0" y="295" width="413" height="22"/>
-         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-         <constraints>
-             <constraint firstAttribute="height" constant="22" id="poi-DH-wdh"/>
-         </constraints>
-     </pageControl>
-     ```
-     */
-    case pageControl
-    /**
-     ```xml
-     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GKz-31-1UO">
-     <rect key="frame" x="78.5" y="212" width="257" height="32"/>
-     <segments>
-     <segment title="服务器指定"/>
-     <segment title="腾讯云"/>
-     <segment title="即构"/>
-     </segments>
-     <color key="selectedSegmentTintColor" red="0.8980392157" green="1" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-     <connections>
-     <action selector="onValueChanged:" destination="-1" eventType="valueChanged" id="sU0-B0-h8B"/>
-     </connections>
-     </segmentedControl>
-     ```
-     */
-    case segmentedControl
-    case segments
-    case segment
     
-    /**
-     example
-     ```xml
-     <visualEffectView
-     opaque="NO"
-     contentMode="scaleToFill"
-     translatesAutoresizingMaskIntoConstraints="NO"
-     id="I8e-RA-MzL">
-     <rect
-     key="frame"
-     x="0.0"
-     y="0.0"
-     width="375"
-     height="384.66666666666669"/>
-     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4wJ-SE-kmb">
-     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
-     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-     </view>
-     <blurEffect style="dark"/>
-     </visualEffectView>
-     ```
-     */
-    case visualEffectView
-    
-    /**
-     used in visualEffectView
-     ```xml
-     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8e-RA-MzL">
-     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
-     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4wJ-SE-kmb">
-     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
-     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-     </view>
-     <blurEffect style="dark"/>
-     </visualEffectView>
-     ```
-     */
-    case blurEffect
-    
-    /**
+    /** ``XibCollectionViewProtocol``
+     
      ```xml
      <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="none" translatesAutoresizingMaskIntoConstraints="NO" id="gPM-w2-kh5">
      <rect key="frame" x="8" y="6" width="420" height="338"/>
@@ -125,24 +32,30 @@ public enum XibUINode: String {
      ```
      */
     case collectionView
+    
+    /// ``XibCollectionViewCellProtocol``
+    case collectionViewCell
+    /// ``XibCollectionReusableViewProtocol``
+    case collectionReusableView
+    
+    /// ``XibCollectionViewFlowLayoutProtocol``
     case collectionViewFlowLayout
     /**
     ```xml
      <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="gTV-IL-0wX" customClass="HWNestRingBoxCell">
     ```
      */
-    case collectionViewCell
+    
     /**
      ```xml
      <collectionReusableView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" id="U6b-Vx-4bR">
      ```
      */
-    case collectionReusableView
     
-    
-    
-    /**
+     /** ``XibTableViewProtocol``
+      
      a table view (must?) have two outlet
+      
      ```xml
      <connections>
      <outlet property="dataSource" destination="-1" id="rsT-xZ-gds"/>
@@ -170,7 +83,8 @@ public enum XibUINode: String {
      ```
      */
     case tableView
-    /**
+    /** ``XibTableViewCellProtocol``
+     
      ```xml
      <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="WPSingleHeadCell">
      ```
@@ -184,43 +98,38 @@ public enum XibUINode: String {
      */
     case tableViewCellContentView
     
+     /** ``XibStackViewProtocol``
+      
+     ```xml
+     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Hnl-zM-uxy">
+     ```
+     */
+    case stackView
     
-    
-    /**
+     /** ``XibScrollViewProtocol``
+      
      ```xml
      <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RMN-EF-X0o">
      </scrollView>
      ```
      */
     case scrollView
-    /**
+     /** ``XibActivityIndicatorViewProtocol``
+      
      ```xml
-     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" placeholderIntrinsicWidth="329" placeholderIntrinsicHeight="4" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-q5-4aG">
-         <rect key="frame" x="16" y="65" width="326" height="4"/>
-         <constraints>
-             <constraint firstAttribute="height" constant="4" id="13j-cO-Li5"/>
-         </constraints>
-         <color key="progressTintColor" red="0.83137254900000002" green="1" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-         <color key="trackTintColor" red="0.34509803921568627" green="0.73725490196078436" blue="0.047058823529411764" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-     </progressView>
+     <activityIndicatorView opaque="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="y4x-al-5Sq">
+         <rect key="frame" x="133.5" y="56" width="20" height="20"/>
+     </activityIndicatorView>
      ```
      */
-    case progressView
+    case activityIndicatorView
     
-    /**
-     used only once in 1062 xib file
-     ```xml
-     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="JSh-HE-hQS">
-     <rect key="frame" x="0.0" y="60" width="421" height="278"/>
-     <locale key="locale" localeIdentifier="zh_CN"/>
-     </datePicker>
-     ```
-     */
-    case datePicker
-    /// found only in datePicker
-    case locale
-    
-    /**
+    /// ``XibImageViewProtocol``
+    case imageView
+
+
+     /** ``XibPickerViewProtocol``
+      
      ```xml
      <pickerView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="5TG-lS-Z9T">
          <rect key="frame" x="0.0" y="44" width="375" height="216"/>
@@ -233,23 +142,158 @@ public enum XibUINode: String {
      */
     case pickerView
     
-    /**
+    /** ``XibProgressViewProtocol``
+     
      ```xml
-     <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="2" translatesAutoresizingMaskIntoConstraints="NO" id="Hnl-zM-uxy">
+     <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" placeholderIntrinsicWidth="329" placeholderIntrinsicHeight="4" translatesAutoresizingMaskIntoConstraints="NO" id="QUF-q5-4aG">
+         <rect key="frame" x="16" y="65" width="326" height="4"/>
+         <constraints>
+             <constraint firstAttribute="height" constant="4" id="13j-cO-Li5"/>
+         </constraints>
+         <color key="progressTintColor" red="0.83137254900000002" green="1" blue="0.8862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+         <color key="trackTintColor" red="0.34509803921568627" green="0.73725490196078436" blue="0.047058823529411764" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+     </progressView>
      ```
      */
-    case stackView
+    case progressView
+ 
+    /// ``XibButtonProtocol``
+    case button
     
-    /**
+     /** ``XibDatePickerProtocol``
+      
+     used only once in 1062 xib file
      ```xml
-     <activityIndicatorView opaque="NO" tag="105" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="y4x-al-5Sq">
-         <rect key="frame" x="133.5" y="56" width="20" height="20"/>
-     </activityIndicatorView>
+     <datePicker contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" datePickerMode="date" style="wheels" translatesAutoresizingMaskIntoConstraints="NO" id="JSh-HE-hQS">
+     <rect key="frame" x="0.0" y="60" width="421" height="278"/>
+     <locale key="locale" localeIdentifier="zh_CN"/>
+     </datePicker>
      ```
      */
-    case activityIndicatorView
+    case datePicker
     
-    /**
+     /** ``XibPageControlProtocol``
+      
+     ```xml
+     <pageControl opaque="NO" contentMode="scaleToFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" numberOfPages="3" translatesAutoresizingMaskIntoConstraints="NO" id="8q3-dv-Ne9">
+     <rect key="frame" x="0.0" y="295" width="413" height="22"/>
+     <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+     <constraints>
+     <constraint firstAttribute="height" constant="22" id="poi-DH-wdh"/>
+     </constraints>
+     </pageControl>
+     ```
+     */
+    case pageControl
+ 
+    /** ``XibSegmentedControlProtocol``
+     
+     ```xml
+     <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="GKz-31-1UO">
+     <rect key="frame" x="78.5" y="212" width="257" height="32"/>
+     <segments>
+     <segment title="服务器指定"/>
+     <segment title="腾讯云"/>
+     <segment title="即构"/>
+     </segments>
+     <color key="selectedSegmentTintColor" red="0.8980392157" green="1" blue="0.89019607840000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+     <connections>
+     <action selector="onValueChanged:" destination="-1" eventType="valueChanged" id="sU0-B0-h8B"/>
+     </connections>
+     </segmentedControl>
+     ```
+     */
+    case segmentedControl
+    /// `segmentedControl` parsing environment
+    case segments
+    /// segment properity
+    case segment
+    
+     /** ``XibSliderProtocol``
+      
+     ```xml
+     <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="32Q-82-d4m">
+     <rect key="frame" x="14" y="502" width="347" height="31"/>
+     <color key="tintColor" red="0.14117647058823529" green="0.77254901960784317" blue="0.44705882352941173" alpha="1" colorSpace="calibratedRGB"/>
+     </slider>
+     ```
+     */
+    case slider
+    
+     /** ``XibSwitchProtocol``
+      
+     ```xml
+     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="irx-u0-CNm">
+     <rect key="frame" x="255" y="8.5" width="51" height="31"/>
+     <connections>
+     <action selector="onSwitchValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="qgr-bo-OoU"/>
+     </connections>
+     </switch>
+     ```
+     */
+    case customSwitch = "switch"
+ 
+    /// ``XibLabelProtocol``
+    case label
+    
+   /** ``XibTextField``
+    
+     ```xml
+     <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" minimumFontSize="17" clearButtonMode="whileEditing" translatesAutoresizingMaskIntoConstraints="NO" id="vuI-Rg-Vc4" customClass="WPLimitedTextField">
+         <rect key="frame" x="15" y="0.0" width="345" height="45"/>
+         <color key="textColor" red="0.20392156862745098" green="0.20392156862745098" blue="0.20392156862745098" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+         <fontDescription key="fontDescription" type="system" pointSize="16"/>
+         <textInputTraits key="textInputTraits"/>
+     </textField>
+     ```
+     */
+    case textField
+      /// ``XibTextViewProtocol``
+    case textView
+ 
+    /** ``XibVisualEffectViewProtocol``
+     example
+     
+     ```xml
+     <visualEffectView
+     opaque="NO"
+     contentMode="scaleToFill"
+     translatesAutoresizingMaskIntoConstraints="NO"
+     id="I8e-RA-MzL">
+     <rect
+     key="frame"
+     x="0.0"
+     y="0.0"
+     width="375"
+     height="384.66666666666669"/>
+     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4wJ-SE-kmb">
+     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
+     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+     </view>
+     <blurEffect style="dark"/>
+     </visualEffectView>
+     ```
+     */
+    case visualEffectView
+    
+    /** ``XibBlurEffectProtocol``
+     
+     used in visualEffectView
+     ```xml
+     <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="I8e-RA-MzL">
+     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
+     <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="4wJ-SE-kmb">
+     <rect key="frame" x="0.0" y="0.0" width="375" height="384.66666666666669"/>
+     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+     </view>
+     <blurEffect style="dark"/>
+     </visualEffectView>
+     ```
+     */
+    case blurEffect
+ 
+    /** ``XibSearchBarProtocol``
+     
      ```xml
      <searchBar contentMode="scaleAspectFill" placeholder="搜索昵称、备注" backgroundImage="home_empty" translatesAutoresizingMaskIntoConstraints="NO" id="Fye-dn-pTB">
          <rect key="frame" x="0.0" y="8" width="343" height="36"/>
@@ -265,20 +309,20 @@ public enum XibUINode: String {
      ```
      */
     case searchBar
+ 
     
-    
-    /**
+      /** ``XibEdgeInsetsProtocol``
+       
      ```xml
-     <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="irx-u0-CNm">
-         <rect key="frame" x="255" y="8.5" width="51" height="31"/>
-         <connections>
-             <action selector="onSwitchValueChanged:" destination="KGk-i7-Jjw" eventType="valueChanged" id="qgr-bo-OoU"/>
-         </connections>
-     </switch>
+     <edgeInsets key="layoutMargins" top="0.0" left="10" bottom="0.0" right="10"/>
      ```
      */
-    case customSwitch = "switch"
-    /**
+    case edgeInsets
+ 
+   /// found only in datePicker
+    case locale
+    
+   /**
      ```xml
      <tabStops>
      <textTab alignment="left" location="28">
@@ -304,13 +348,7 @@ public enum XibUINode: String {
      */
     case inset
     
-    /**
-     ```xml
-     <edgeInsets key="layoutMargins" top="0.0" left="10" bottom="0.0" right="10"/>
-     ```
-     */
-    case edgeInsets
-    
+   
     /**
      can be used in attributes
      ```xml
@@ -450,7 +488,6 @@ public enum XibUINode: String {
      <font key="NSFont" metaFont="system" size="14"/>
      ```
      this tag is used under attribute environment only.
-     ``XibUINode.fontDescription`` is used for other properity
      */
     case font
     
@@ -552,8 +589,10 @@ public enum XibUINode: String {
     case mask
     case exclude
     
+    /// connections
     case connections
-    // Connections
+    
+    /// action
     case action
     /**
      ```xml
@@ -621,8 +660,10 @@ public enum XibUINode: String {
     
     /// - constraints: `<constraints>`
     case constraints
+    
     /// xib file entrance
     case document
+    
     /**
      ```xml
      <device id="retina4_7" orientation="portrait">
@@ -634,10 +675,13 @@ public enum XibUINode: String {
     
     /// xib file tag
     case dependencies
+    
     /// `<deployment identifier="iOS"/>`
     case deployment
+    
     /// xib file tag
     case plugIn
+    
     /// xib file tag
     case capability
     

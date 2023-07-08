@@ -64,59 +64,59 @@ struct XibIgnoredElement: XibElement {
 }
 
 /// View
-struct XibView: XibViewProtocol {
-    var id: String
-    
-    init(attributes: [String: String]) throws {
-        // TODO: Implemenation
-        self.id = attributes["id"]!
-    }
-}
+//struct XibView: XibViewProtocol {
+//    var id: String
+//    
+//    init(attributes: [String: String]) throws {
+//        // TODO: Implemenation
+//        self.id = attributes["id"]!
+//    }
+//}
 
-struct XibTextView: XibTextViewProtocol {
-    var id: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: Implementation
-//        fatalError()
-        self.id = attributes["id"]!
-    }
-}
+//struct XibTextView: XibTextViewProtocol {
+//    var id: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: Implementation
+////        fatalError()
+//        self.id = attributes["id"]!
+//    }
+//}
 
-struct XibButton: XibButtonProtocol {
-    var id: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: Implementation
-//        fatalError()
-        self.id = attributes["id"]!
-    }
-}
+//struct XibButton: XibButtonProtocol {
+//    var id: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: Implementation
+////        fatalError()
+//        self.id = attributes["id"]!
+//    }
+//}
 
-struct XibLabel: XibLabelProtocol {
-    var id: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-//        fatalError()
-        self.id = attributes["id"]!
-    }
-}
+//struct XibLabel: XibLabelProtocol {
+//    var id: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+////        fatalError()
+//        self.id = attributes["id"]!
+//    }
+//}
 
-struct XibPageControl: XibPageControlProtocol {
-    var id: String
-    
-    init(attributes: [String: String]) throws {
-        self.id = attributes["id"]!
-    }
-}
+//struct XibPageControl: XibPageControlProtocol {
+//    var id: String
+//    
+//    init(attributes: [String: String]) throws {
+//        self.id = attributes["id"]!
+//    }
+//}
 
-struct XibImageView: XibImageViewProtocol {
-    var id: String
-    init(attributes: [String : String]) throws {
-        self.id = attributes["id"]!
-    }
-}
+//struct XibImageView: XibImageViewProtocol {
+//    var id: String
+//    init(attributes: [String : String]) throws {
+//        self.id = attributes["id"]!
+//    }
+//}
 
 struct XibOutlet: XibOutletProtocol {
     let property: String
@@ -289,10 +289,10 @@ struct XibConstraint: XibConstraintProtocol {
 }
 
 
-struct XibColor: XibColorProtocol {
-    var key: String
+public struct XibColor: XibColorProtocol {
+    public var key: String
     
-    init(attributes: [String : String]) throws {
+    public init(attributes: [String : String]) throws {
         //TODO: implementation
         fatalError()
     }
@@ -307,73 +307,73 @@ struct XibImage: XibImageProtocol {
     }
 }
 
-struct XibAutoResizingMask: XibAutoResizingMaskProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibAutoResizingMask: XibAutoResizingMaskProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibString: XibStringProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibString: XibStringProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibFontDescription: XibFontDescriptionProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibFontDescription: XibFontDescriptionProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibTextInputTraits: XibTextInputTraitsProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibTextInputTraits: XibTextInputTraitsProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibDataDetectorType: XibDataDetectorTypeProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibDataDetectorType: XibDataDetectorTypeProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibCustomNil: XibCustomNilProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibCustomNil: XibCustomNilProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
-struct XibState: XibStateProtocol {
-    var key: String
-    
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-        fatalError()
-    }
-}
+//struct XibState: XibStateProtocol {
+//    var key: String
+//    
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+//        fatalError()
+//    }
+//}
 
 // MARK: Empty Element
-struct XibEmptyElement: XibElement {
-    init(attributes: [String : String]) throws {
-        // TODO: implemenatation
-//        fatalError()
-    }
-}
+//struct XibEmptyElement: XibElement {
+//    init(attributes: [String : String]) throws {
+//        // TODO: implemenatation
+////        fatalError()
+//    }
+//}

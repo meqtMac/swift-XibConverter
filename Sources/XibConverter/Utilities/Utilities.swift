@@ -8,14 +8,14 @@
 import Foundation
 
 extension String {
-    func capitalizeFirstLetter() -> String {
+    public func capitalizeFirstLetter() -> String {
         if self.count < 1 {
             return self
         }
         return prefix(1).capitalized + dropFirst()
     }
     
-    func lowerFirstLetter() -> String {
+    public func lowerFirstLetter() -> String {
         if self.count < 1 {
             return self
         }

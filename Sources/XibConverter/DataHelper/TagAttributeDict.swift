@@ -1,5 +1,6 @@
+#if DEBUG
 /// test Data, generated from combinationation of 1062 xib files
-let tagAttributeDicts: [String: [String: [String]]] = [
+public let tagAttributeDicts: [String: [String: [String]]] = [
     "font":
         [	"size":		["18", "16", "14", "13", "12", "8", ],
             "key":		["NSOriginalFont", "NSFont", 	],
@@ -175,7 +176,8 @@ let tagAttributeDicts: [String: [String: [String]]] = [
             "clearsContextBeforeDrawing":		["NO"],
         ],
     "scrollView":
-        [	"alwaysBounceHorizontal":		["YES"],
+        [
+            "alwaysBounceHorizontal":		["YES"],
             "scrollEnabled":		["NO"],
             "multipleTouchEnabled":		["YES"],
             "placeholderIntrinsicWidth":		["300"],
@@ -462,7 +464,8 @@ let tagAttributeDicts: [String: [String: [String]]] = [
             "eventType":		["touchUpOutside", "touchDown", "editingDidEnd", "editingChanged", "valueChanged", "touchUpInside", 	],
         ],
     "collectionView":
-        [	"multipleTouchEnabled":		["YES"],
+        [
+            "multipleTouchEnabled":		["YES"],
             "directionalLockEnabled":		["YES"],
             "placeholderIntrinsicWidth":		["375"],
             "id":		["BWJ-wh-IIh"],
@@ -742,3 +745,4 @@ let tagAttributeDicts: [String: [String: [String]]] = [
         [	"name":		["scrollViewTexturedBackgroundColor", "systemMintColor", "systemBlueColor", "darkTextColor", "groupTableViewBackgroundColor", "labelColor", "systemBackgroundColor", "systemRedColor"],
         ],
 ]
+#endif
