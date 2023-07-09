@@ -5,34 +5,6 @@
 //  Created by 蒋艺 on 2023/7/8.
 //
 
-//let data = [
-//    "view": ["horizontalCompressionResistancePriority", "hidden", "customClass", "verifyAmbiguity", "translatesAutoresizingMaskIntoConstraints", "insetsLayoutMarginsFromSafeArea", "verticalCompressionResistancePriority", "placeholderIntrinsicWidth", "multipleTouchEnabled", "clearsContextBeforeDrawing", "contentMode", "ambiguous", "id", "key", "verticalHuggingPriority", "opaque", "misplaced", "userLabel", "clipsSubviews", "fixedFrame", "placeholderIntrinsicHeight", "userInteractionEnabled", "tag", "horizontalHuggingPriority", "alpha", "autoresizesSubviews"],
-//    "collectionView": ["dataMode"],
-//    "collectionViewCell": [],
-//    "collectionReusableView": [],
-//    "tableView": ["contentInsetAdjustmentBehavior",
-//                "contentViewInsetsToSafeArea", "estimatedSectionHeaderHeight", "sectionIndexMinimumDisplayRowCount", "estimatedRowHeight", "separatorStyle", "style", "allowsSelection", "estimatedSectionFooterHeight", "rowHeight", "sectionFooterHeight", "sectionHeaderHeight"]
-//    "tableViewCell": ["rowHeight", "preservesSuperviewLayoutMargins", "selectionStyle", "reuseIdentifier", "indentationWidth"],
-//    "tableViewCellContentView": ["preservesSuperviewLayoutMargins", "tableViewCell"],
-//    "stackView": ["alignment", "spacing", "customModuleProvider", "distribution", "semanticContentAttribute", "axis"],
-//    "scrollView": ["directionalLockEnabled", "pagingEnabled", "keyboardDismissMode", "alwaysBounceHorizontal", "delaysContentTouches", "alwaysBounceVertical", "scrollEnabled", "bouncesZoom", "showsHorizontalScrollIndicator", "showsVerticalScrollIndicator", "bounces"]
-//    "activityIndicatorView": ["style", "hidesWhenStopped"]
-//    "imageView": ["image", "adjustsImageSizeForAccessibilityContentSizeCategory", "highlightedImage"]
-//    "pickerView": []
-//    "progressView": []
-//    "control": []
-//    "button": ["enabled", "adjustsImageWhenHighlighted", "hasAttributedTitle", "lineBreakMode", "contentVerticalAlignment", "buttonType", "contentHorizontalAlignment", "semanticContentAttribute", "selected"]
-//    "datePicker": ["contentHorizontalAlignment", "contentVerticalAlignment", "datePickerMode", "style"]
-//    "pageControl": ["hidesForSinglePage", "numberOfPages", "enabled", "contentHorizontalAlignment", "contentVerticalAlignment"]
-//    "segmentedControl": ["selectedSegmentIndex", "segmentControlStyle", "contentVerticalAlignment", "contentHorizontalAlignment"]
-//    "slider": ["maxValue", "contentHorizontalAlignment", "minValue", "value", "contentVerticalAlignment"]
-//    "switch": ["contentVerticalAlignment", "on", "contentHorizontalAlignment"]
-//    "label": ["adjustsLetterSpacingToFitWidth", "text", "textAlignment", "minimumFontSize", "lineBreakMode", "minimumScaleFactor", "usesAttributedText", "numberOfLines", "baselineAdjustment", "adjustsFontForContentSizeCategory", "adjustsFontSizeToFit"]
-//    "textView": ["textAlignment", "usesAttributedText", "text", "editable", "selectable"]
-//    "visualEffectView": []
-//    "searchBar": ["showsCancelButton", "searchBarStyle", "backgroundImage", "placeholder"]
-//]
-
 #if DEBUG
 import Foundation
 public let protocolInheritance = """
@@ -134,6 +106,18 @@ public class InheritanceTree {
         for child in childs {
             child.printAllTagExpressionsSelfAndChild()
         }
+    }
+    
+    public func printAllTags() {
+        print("""
+        // \(self.value)
+        \(self.tags.sorted().map({"case \($0)"}).joined(separator: "\n"))
+        """
+        )
+        for child in self.childs {
+            child.printAllTags()
+        }
+        
     }
     
     private func printInitExpression() {

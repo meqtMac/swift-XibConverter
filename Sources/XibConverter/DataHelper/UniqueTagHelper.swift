@@ -5,6 +5,7 @@
 //  Created by 蒋艺 on 2023/7/6.
 //
 
+#if DEBUG
 import Foundation
 
 public typealias AttributeDict = [String: Set<String>]
@@ -79,3 +80,5 @@ extension TagAttributeDict {
        return delegate.tagAttributeDict
     }
 }
+
+#endif

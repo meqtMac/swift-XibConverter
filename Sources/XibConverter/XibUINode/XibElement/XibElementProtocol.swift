@@ -38,6 +38,169 @@ public enum XibScrollViewKeyboardDismissMode: String {
     case interactiveWithAccessory
 }
 
+
+
+public enum XibViewAttribute {
+    // view
+    case alpha(CGFloat) // "alpha":        ["0.90000000000000002"]
+    case ambiguous(Bool) // "ambiguous":        ["YES"]
+    case autoresizesSubviews(Bool) // "autoresizesSubviews":        ["NO"]
+    case clearsContextBeforeDrawing(Bool) // "clearsContextBeforeDrawing":        ["NO"]
+    case clipsSubviews(Bool) // "clipsSubviews":        ["YES"]
+    case contentMode(String) // "contentMode":        ["scaleAspectFill", "scaleToFill", "center", "scaleAspectFit"]
+    case customClass(String) // "customClass":        ["HWChatJsShareContentView"]
+    case fixedFrame(Bool) // "fixedFrame":        ["YES",     ]
+    case hidden(Bool) //  "hidden":        ["YES",     ]
+    case horizontalCompressionResistancePriority(Int) // "horizontalCompressionResistancePriority":        ["740"]
+    case horizontalHuggingPriority(Int) // "horizontalHuggingPriority":        ["251", "252", "248", "249",     ]
+    case id(String) //"id":        ["ppV-gM-Jc6"]
+    case insetsLayoutMarginsFromSafeArea(Bool)
+    case key(String)
+    case misplaced(Bool)
+    case multipleTouchEnabled(Bool)
+    case opaque(Bool)
+    case placeholderIntrinsicHeight(CGFloat)
+    case placeholderIntrinsicWidth(CGFloat)
+    case tag(Int)
+    case translatesAutoresizingMaskIntoConstraints(Bool)
+    case userInteractionEnabled(Bool)
+    case userLabel(String)
+    case verifyAmbiguity(String)
+    case verticalCompressionResistancePriority(Int)
+    case verticalHuggingPriority(Int)
+    // scrollView
+    case alwaysBounceHorizontal(Bool)
+    case alwaysBounceVertical(Bool)
+    case bounces(Bool)
+    case bouncesZoom(Bool)
+    case delaysContentTouches(Bool)
+    case directionalLockEnabled(Bool)
+    case keyboardDismissMode(String)
+    case pagingEnabled(Bool)
+    case scrollEnabled(Bool)
+    case showsHorizontalScrollIndicator(Bool)
+    case showsVerticalScrollIndicator(Bool)
+//    // collectionView
+    case dataMode // 🤔
+//    // tableView
+    case allowsSelection
+    case contentInsetAdjustmentBehavior
+    case contentViewInsetsToSafeArea
+    case estimatedRowHeight
+    case estimatedSectionFooterHeight
+    case estimatedSectionHeaderHeight
+    case rowHeight
+    case sectionFooterHeight
+    case sectionHeaderHeight
+    case sectionIndexMinimumDisplayRowCount
+    case separatorStyle
+    case style
+//    // textView
+    case editable
+    case selectable
+    case text
+    case textAlignment
+    case usesAttributedText
+//    // collectionReusableView
+//
+//    // collectionViewCell
+//
+//    // tableViewCell
+    case indentationWidth
+    case preservesSuperviewLayoutMargins
+    case reuseIdentifier
+//    case rowHeight
+    case selectionStyle
+//    // tableViewCellContentView
+//    case preservesSuperviewLayoutMargins
+    case tableViewCell
+//    // stackView
+    case alignment
+    case axis
+    case customModuleProvider
+    case distribution
+    case semanticContentAttribute
+    case spacing
+//    // activityIndicatorView
+    case hidesWhenStopped
+//    case style
+//    // imageView
+    case adjustsImageSizeForAccessibilityContentSizeCategory
+    case highlightedImage
+    case image
+//    // pickerView
+//
+//    // progressView
+//
+//    // control
+//
+//    // button
+    case adjustsImageWhenHighlighted
+    case buttonType
+    case contentHorizontalAlignment
+    case contentVerticalAlignment
+    case enabled
+    case hasAttributedTitle
+    case lineBreakMode
+    case selected
+//    case semanticContentAttribute
+//    
+//    // datePicker
+//    case contentHorizontalAlignment
+//    case contentVerticalAlignment
+    case datePickerMode
+//    case style
+//    
+//    // pageControl
+//    case contentHorizontalAlignment
+//    case contentVerticalAlignment
+//    case enabled
+    case hidesForSinglePage
+    case numberOfPages
+//    
+//    // segmentedControl
+//    case contentHorizontalAlignment
+//    case contentVerticalAlignment
+    case segmentControlStyle
+    case selectedSegmentIndex
+//    
+//    // slider
+//    case contentHorizontalAlignment
+//    case contentVerticalAlignment
+    case maxValue
+    case minValue
+    case value
+//    
+//    // switch
+//    case contentHorizontalAlignment
+//    case contentVerticalAlignment
+    case on
+//    
+//    // label
+    case adjustsFontForContentSizeCategory
+    case adjustsFontSizeToFit
+    case adjustsLetterSpacingToFitWidth
+    case baselineAdjustment
+//    case lineBreakMode
+    case minimumFontSize
+    case minimumScaleFactor
+    case numberOfLines
+//    case text
+//    case textAlignment
+//    case usesAttributedText
+//    
+//    // visualEffectView
+//
+//    // searchBar
+    case backgroundImage
+    case placeholder
+    case searchBarStyle
+    case showsCancelButton
+}
+
+
+
+//
 /// `UIKit.UIView`
 public protocol XibViewProtocol: XibElement {
     var id: String { get }
@@ -85,7 +248,6 @@ public protocol XibViewProtocol: XibElement {
     // "contentMode":        ["scaleAspectFill", "scaleToFill", "center", "scaleAspectFit"]
     var contentMode: XibContentMode? { get }
     
- 
     // "autoresizesSubviews":        ["NO"]
     var autoresizesSubviews: Bool? { get }
     
