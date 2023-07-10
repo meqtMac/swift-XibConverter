@@ -14,8 +14,16 @@ let package = Package(
         .library(
             name: "XibConverter",
             targets: [ "XibConverter" ]
+        ),
+        .executable(
+            name: "XibConverterCLI",
+            targets: ["XibConverterCLI"]
         )
     ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-argument-parser.git", from: "1.2.0"),
+    ],
+    
     targets: [
         .target(
             name: "XibConverter"
@@ -23,6 +31,13 @@ let package = Package(
         .executableTarget(
             name: "XibConverterExec",
             dependencies: [
+                "XibConverter"
+            ]
+        ),
+        .executableTarget(
+            name: "XibConverterCLI",
+            dependencies: [
+                .product(name: "ArgumentParser", package: "swift-argument-parser"),
                 "XibConverter"
             ]
         ),
